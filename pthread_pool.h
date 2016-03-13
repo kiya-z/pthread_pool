@@ -5,7 +5,7 @@
 #ifndef __PTHREAD_POOL_H__
 /**
  * Create a new thread pool.
- * 
+ *
  * New tasks should be enqueued with pool_enqueue. thread_func will be called
  * once per queued task with its sole argument being the argument given to
  * pool_enqueue.

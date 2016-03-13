@@ -4,9 +4,9 @@
 #include <stdio.h>
 
 struct pool_queue {
-	void *arg;
-	char free;
-	struct pool_queue *next;
+	void *arg;	//the argument to pass to the thread worker function.
+	char free;	//whether you wanna free the argument after the task has completed.
+	struct pool_queue *next;	//point to next task in the queue
 };
 
 struct pool {
