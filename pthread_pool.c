@@ -3,22 +3,28 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/*
+*	single task node struct in thread pool queue
+*/
 struct pool_queue {
 	void *arg;	//the argument to pass to the thread worker function.
 	char free;	//whether you wanna free the argument after the task has completed.
 	struct pool_queue *next;	//point to next task in the queue
 };
 
+/*
+*	the thread pool struct
+*/
 struct pool {
-	char cancelled;
-	void *(*fn)(void *);
-	unsigned int remaining;
-	unsigned int nthreads;
-	struct pool_queue *q;
-	struct pool_queue *end;
+	char cancelled;					// if the pool is cancelled
+	void *(*fn)(void *);		// worker function
+	unsigned int remaining;	// number of remaining threads in the thread pool
+	unsigned int nthreads;	// initial number of threads
+	struct pool_queue *q;		// the header node of the thread pool queue
+	struct pool_queue *end;	// the end node of the thread pool queue
 	pthread_mutex_t q_mtx;
 	pthread_cond_t q_cnd;
-	pthread_t threads[1];
+	pthread_t threads[1];		
 };
 
 static void * thread(void *arg);
