@@ -22,9 +22,9 @@ struct pool {
 	unsigned int nthreads;	// initial number of threads
 	struct pool_queue *q;		// the header node of the thread pool queue
 	struct pool_queue *end;	// the end node of the thread pool queue
-	pthread_mutex_t q_mtx;
-	pthread_cond_t q_cnd;
-	pthread_t threads[1];		
+	pthread_mutex_t q_mtx;	// thread lock
+	pthread_cond_t q_cnd;		// condition var
+	pthread_t threads[1];		//	thread id
 };
 
 static void * thread(void *arg);
